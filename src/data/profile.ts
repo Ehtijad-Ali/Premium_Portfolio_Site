@@ -160,14 +160,14 @@ export const skillGroups = [
 export const tools = ['Python', 'TensorFlow', 'PyTorch', 'LangChain', 'OpenCV', 'FastAPI', 'React', 'TypeScript', 'n8n', 'Docker', 'PostgreSQL', 'AWS']
 
 export const services = [
-  { title: 'AI Development', text: 'Custom AI applications, intelligent systems, and AI integrations.' },
-  { title: 'AI Agent Development', text: 'AI agents, agentic workflows, tool integrations, and business automation.' },
-  { title: 'Machine Learning', text: 'Predictive models, classification, regression, data analysis, and ML applications.' },
-  { title: 'Computer Vision', text: 'Object detection, image processing, visual recognition, and computer vision applications.' },
-  { title: 'Full-Stack Web Development', text: 'Modern React applications, Python backends, REST APIs, and database-driven platforms.' },
-  { title: 'LLM & RAG Applications', text: 'LLM integration, document-based question answering, and retrieval-augmented generation.' },
-  { title: 'Workflow Automation', text: 'n8n workflows, API integrations, and repetitive business process automation.' },
-  { title: 'Data Science', text: 'Data analysis, visualization, predictive analytics, and actionable insights.' },
+  { title: 'AI Development', text: 'Custom AI applications, intelligent systems, and AI integrations.', tags: ['Python','FastAPI','AI integration'] },
+  { title: 'AI Agent Development', text: 'AI agents, agentic workflows, tool integrations, and business automation.', tags: ['LangChain','Agents','Tool calling'] },
+  { title: 'Machine Learning', text: 'Predictive models, classification, regression, data analysis, and ML applications.', tags: ['Scikit-learn','TensorFlow','PyTorch'] },
+  { title: 'Computer Vision', text: 'Object detection, image processing, visual recognition, and computer vision applications.', tags: ['OpenCV','YOLO','MediaPipe'] },
+  { title: 'Full-Stack Web Development', text: 'Modern React applications, Python backends, REST APIs, and database-driven platforms.', tags: ['React','TypeScript','PostgreSQL'] },
+  { title: 'LLM & RAG Applications', text: 'LLM integration, document-based question answering, and retrieval-augmented generation.', tags: ['LLMs','RAG','Document Q&A'] },
+  { title: 'Workflow Automation', text: 'n8n workflows, API integrations, and repetitive business process automation.', tags: ['n8n','APIs','Integrations'] },
+  { title: 'Data Science', text: 'Data analysis, visualization, predictive analytics, and actionable insights.', tags: ['Python','Visualization','Analytics'] },
 ]
 
 export const process = [
