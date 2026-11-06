@@ -432,7 +432,6 @@ body, .header, .section, .footer { transition: background-color .4s var(--ease),
 }
 
 /* ---------- Services (enhanced) ---------- */
-.svc-head { align-items: flex-end; }
 .svc-intro { max-width: 400px; }
 .svc-intro p { font-size: 13.5px; line-height: 1.75; color: var(--muted); margin: 0 0 14px; }
 .svc-count { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: inline-flex; align-items: baseline; gap: 8px; }
@@ -466,7 +465,6 @@ body, .header, .section, .footer { transition: background-color .4s var(--ease),
 @media (max-width: 640px) { .svc-grid { grid-template-columns: 1fr; } .svc-in { min-height: 0; } }
 
 /* ---------- Journey (enhanced) ---------- */
-.jr-head { align-items: flex-end; }
 .jr-stats { display: grid; grid-template-columns: repeat(4, auto); border-left: 1px solid var(--line); }
 .jr-stats > div { padding: 4px 22px; border-right: 1px solid var(--line); }
 .jr-stats b { font-family: var(--font-display); font-weight: 400; font-size: 34px; line-height: 1; display: block; }
@@ -515,4 +513,11 @@ a.cert:hover svg { color: var(--accent); }
   .tl-head { grid-template-columns: 1fr 32px; }
   .tl-meta { grid-column: 1 / -1; flex-direction: row; align-items: center; }
   .tl-body { padding-left: 0; }
+  .jr-head { align-items: flex-start; }
+  .tl { padding-left: 26px; }
+  .tl-node { left: -26px; }
+  .tl-rail { left: 6px; }
+  .tl-head { padding: 22px 0; }
+  .tl-head h3 { font-size: 16.5px; }
+  .mile { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 32px; }
 }
