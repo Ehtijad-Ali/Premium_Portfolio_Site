@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, useScroll } from 'framer-motion'
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
 import { profile } from '../data/profile'
 
 const items = [
@@ -23,6 +23,17 @@ export default function Header({ motionOn, toggleMotion }: { motionOn: boolean; 
   const { scrollYProgress } = useScroll()
   const [active, setActive] = useState('')
   const [open, setOpen] = useState(false)
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'dark')
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+    document.querySelector('meta[name=theme-color]')?.setAttribute('content', theme === 'light' ? '#f4f1ec' : '#090909')
+    try {
+      localStorage.setItem('theme', theme)
+    } catch {
+      /* ignore */
+    }
+  }, [theme])
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -59,6 +70,14 @@ export default function Header({ motionOn, toggleMotion }: { motionOn: boolean; 
           <div className="header-right">
             <button className="motion-toggle" onClick={toggleMotion} aria-pressed={motionOn}>
               <span className="box" aria-hidden /> Motion {motionOn ? 'on' : 'off'}
+            </button>
+            <button
+              className="theme-toggle"
+              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              title={theme === 'light' ? 'Dark theme' : 'Light theme'}
+            >
+              {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
             </button>
             <a href="#contact" className="talk">
               <span>Let’s talk</span> <ArrowUpRight size={14} />

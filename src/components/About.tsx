@@ -1,6 +1,8 @@
 import { Asterisk } from 'lucide-react'
 import { education, process, profile, skillGroups } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
+import SystemDiagram from './SystemDiagram'
+import TechLogos from './TechLogos'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -56,6 +58,7 @@ export default function About() {
                 </div>
               </div>
             ))}
+            <TechLogos />
           </div>
 
           <div className="about-col">
@@ -74,6 +77,9 @@ export default function About() {
                 </Reveal>
               ))}
             </div>
+            <Reveal delay={0.2}>
+              <SystemDiagram />
+            </Reveal>
           </div>
 
           <div className="about-col quote-col" style={{ paddingTop: 0, paddingBottom: 0, paddingRight: 0 }}>

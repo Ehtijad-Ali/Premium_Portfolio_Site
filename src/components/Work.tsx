@@ -81,7 +81,7 @@ export default function Work() {
                   <div>
                     <h3>{p.title}</h3>
                     <p>
-                      {p.category} / {p.year}
+                      {p.category}{p.year && ` / ${p.year}`}
                     </p>
                   </div>
                   <ArrowUpRight size={16} />
@@ -154,7 +154,7 @@ function ProjectModal({ project: p, onClose }: { project: Project; onClose: () =
         </div>
         <div className="modal-body">
           <div className="eyebrow red">
-            {p.category} / {p.year}
+            {p.category}{p.year && ` / ${p.year}`}
           </div>
           <h2 id="pm-title">{p.title}</h2>
           <p>{p.overview}</p>

@@ -1,15 +1,16 @@
 import { useState, type FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, Briefcase, Code2, Mail, MapPin, Play, Plus, ShoppingBag, UserRound } from 'lucide-react'
+import { ArrowUpRight, Briefcase, Code2, Mail, MapPin, Phone, Play, Plus, ShoppingBag, UserRound } from 'lucide-react'
 import { contactEndpoint, links, profile } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
 
 const rows = [
   { label: 'EMAIL', value: links.email, href: links.email && `mailto:${links.email}`, icon: Mail },
-  { label: 'LINKEDIN', value: links.linkedin && 'LinkedIn profile', href: links.linkedin, icon: UserRound },
-  { label: 'GITHUB', value: links.github && 'GitHub profile', href: links.github, icon: Code2 },
-  { label: 'FIVERR', value: links.fiverr && 'Fiverr profile', href: links.fiverr, icon: ShoppingBag },
-  { label: 'UPWORK', value: links.upwork && 'Upwork profile', href: links.upwork, icon: Briefcase },
+  { label: 'PHONE / WHATSAPP', value: links.phone, href: links.phone && `https://wa.me/${links.phone.replace(/\D/g, '')}`, icon: Phone },
+  { label: 'LINKEDIN', value: links.linkedin && 'ehtijad-ali', href: links.linkedin, icon: UserRound },
+  { label: 'GITHUB', value: links.github && 'ehtijad-ali', href: links.github, icon: Code2 },
+  { label: 'FIVERR', value: links.fiverr && 'saaimhl', href: links.fiverr, icon: ShoppingBag },
+  { label: 'UPWORK', value: links.upwork && 'Ehtijad Ali', href: links.upwork, icon: Briefcase },
   { label: 'BASED IN', value: profile.location, href: '', icon: MapPin },
 ]
 

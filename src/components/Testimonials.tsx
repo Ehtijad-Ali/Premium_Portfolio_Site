@@ -29,7 +29,7 @@ export default function Testimonials() {
               <figure key={t.name} className="quote-card" style={{ margin: 0 }}>
                 <span className="q">“</span>
                 <blockquote style={{ margin: '20px 0', fontSize: 16, lineHeight: 1.6 }}>{t.quote}</blockquote>
-                <figcaption className="eyebrow" style={{ color: '#fff' }}>
+                <figcaption className="eyebrow" style={{ color: '#f2efeb' }}>
                   {t.name} · {t.source}
                 </figcaption>
               </figure>

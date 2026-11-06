@@ -29,11 +29,12 @@ export const profile = {
 
 /** Leave a value as '' to hide it. Never invent URLs. */
 export const links = {
-  email: '', // TODO e.g. 'you@example.com'
-  linkedin: '', // TODO full URL
-  github: '', // TODO full URL
-  fiverr: '', // TODO full URL
-  upwork: '', // TODO full URL
+  email: 'ehtyalee1919@gmail.com',
+  phone: '+92 311 0868172',
+  linkedin: 'https://www.linkedin.com/in/ehtijad-ali-1497623b9/',
+  github: 'https://github.com/ehtijad-ali',
+  fiverr: 'https://www.fiverr.com/saaimhl',
+  upwork: 'https://www.upwork.com/freelancers/~015703142356b7fd16',
 }
 
 /** Contact form endpoint (e.g. a Formspree / Web3Forms / own API URL). Empty = form shows "needs configuration". */
@@ -103,10 +104,10 @@ export const experience: Experience[] = [
 
 export const education = [
   {
-    title: "Bachelor's-level studies", // TODO exact degree title
-    org: 'Computer Science / Data Science', // TODO exact institution
-    period: '2025 – 2027',
-    note: 'University-level education, in progress.',
+    title: 'BS in Data Science',
+    org: 'Karakoram International University, Pakistan',
+    period: '2024 – NOW',
+    note: 'In progress.',
   },
   {
     title: 'Data Science & AI Training',
@@ -116,8 +117,8 @@ export const education = [
   },
   {
     title: 'Intermediate in Computer Science',
-    org: 'Kings College, Jutial',
-    period: '',
+    org: "King's College Jutial, Gilgit",
+    period: '2020 – 2022',
     note: '',
   },
 ]
@@ -197,40 +198,72 @@ export type Project = {
   placeholder?: boolean
 }
 
-/** PLACEHOLDERS — replace with your real projects. Add as many as you like. */
+/** Add screenshots to /public/projects and set 'image'. Add github / demo URLs only when real. */
 export const projects: Project[] = [
   {
-    id: 'ai-agent',
-    title: 'AI Agent Project',
-    category: 'AI Agent Systems',
-    year: '2025',
-    summary: 'Placeholder — an agentic workflow project.',
-    overview: 'Replace with the real overview: the problem, approach and outcome.',
-    role: 'Design, development, deployment',
-    tech: ['Python', 'LangChain', 'FastAPI'],
-    placeholder: true,
-  },
-  {
-    id: 'cv-system',
-    title: 'Computer Vision Project',
+    id: 'face-swap-detection',
+    title: 'Face-Swap Detection Interview System',
     category: 'Computer Vision',
-    year: '2024',
-    summary: 'Placeholder — an object detection / vision project.',
-    overview: 'Replace with the real overview: the problem, approach and outcome.',
-    role: 'Model training, application development',
-    tech: ['YOLO', 'OpenCV', 'Python'],
-    placeholder: true,
+    year: '',
+    summary: 'Detects face-swapping and identity fraud during online interviews in real time.',
+    overview:
+      'An AI-based interview platform that detects face-swapping or identity fraud during online interviews using computer vision techniques. The system verifies candidate identity in real time, records the interview session, and securely stores video and verification data in the company database.',
+    role: 'AI & full-stack development',
+    tech: ['Computer Vision', 'Face Verification', 'Video Recording', 'Database'],
   },
   {
-    id: 'ml-dashboard',
-    title: 'Data Science Project',
-    category: 'Data Science',
-    year: '2024',
-    summary: 'Placeholder — a predictive analytics / dashboard project.',
-    overview: 'Replace with the real overview: the problem, approach and outcome.',
-    role: 'Analysis, modelling, visualization',
-    tech: ['Pandas', 'Scikit-learn', 'Power BI'],
-    placeholder: true,
+    id: 'ai-interview',
+    title: 'AI Interview System',
+    category: 'AI Agent Systems',
+    year: '',
+    summary: 'Candidates are interviewed by an AI bot; responses are recorded and stored for evaluation.',
+    overview:
+      'An AI-driven interview platform where candidates interact with an AI bot for interviews. The system records responses and securely stores interview data in the company database for evaluation.',
+    role: 'AI & full-stack development',
+    tech: ['Conversational AI', 'NLP', 'Database'],
+  },
+  {
+    id: 'image-generation',
+    title: 'AI Image Generation Tool',
+    category: 'AI Applications',
+    year: '',
+    summary: 'Generate up to 20 images per prompt and download them all as a ZIP.',
+    overview:
+      'A web-based AI image generation platform that allows users to generate up to 20 images per prompt with no strict generation limits. The system supports batch image creation and lets users download all generated images as a ZIP file.',
+    role: 'Design & development',
+    tech: ['Generative AI', 'Web App', 'Batch Processing'],
+  },
+  {
+    id: 'profile-optimizer',
+    title: 'Profile Optimizer Extension',
+    category: 'NLP & LLM',
+    year: '',
+    summary: 'Browser extension that uses AI to improve LinkedIn / Fiverr profiles.',
+    overview:
+      'A browser extension that analyzes and optimizes user profiles (e.g. LinkedIn / Fiverr) using AI. It suggests improvements to headlines, descriptions and keywords, and overall profile visibility, using NLP models.',
+    role: 'Design & development',
+    tech: ['Browser Extension', 'NLP', 'LLM'],
+  },
+  {
+    id: 'image-classification',
+    title: 'CNN Image Classifier',
+    category: 'Machine Learning',
+    year: '',
+    summary: 'Convolutional neural network reaching 92% accuracy on a custom dataset.',
+    overview:
+      'A convolutional neural network image classifier built with TensorFlow, achieving 92% accuracy on a custom dataset.',
+    role: 'Model development',
+    tech: ['TensorFlow', 'CNN', 'Python'],
+  },
+  {
+    id: 'genai-tools',
+    title: 'Generative AI Tools',
+    category: 'NLP & LLM',
+    year: '',
+    summary: 'Language translation and FAQ chatbot tools built with NLP and APIs.',
+    overview: 'Language translation and FAQ chatbot tools built using NLP techniques and APIs to enhance user interactions.',
+    role: 'Development',
+    tech: ['NLP', 'Chatbot', 'APIs'],
   },
 ]
 
