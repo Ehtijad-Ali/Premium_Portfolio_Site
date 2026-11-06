@@ -42,7 +42,8 @@ export default function App() {
     }
   }, [motionOn])
 
-  const path = window.location.pathname.replace(/\/+$/, '')
+  const base = new URL(import.meta.env.BASE_URL, window.location.href).pathname.replace(/\/+$/, '')
+  const path = window.location.pathname.replace(/\/+$/, '').slice(base.length)
   if (path !== '' && path !== '/index.html') return <NotFound />
 
   const socials = [

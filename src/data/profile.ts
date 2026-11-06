@@ -1,3 +1,9 @@
+import faceSwap from '../assets/projects/face-swap.svg'
+import aiInterview from '../assets/projects/ai-interview.svg'
+import imageGen from '../assets/projects/image-gen.svg'
+import profileOpt from '../assets/projects/profile-opt.svg'
+import cnn from '../assets/projects/cnn.svg'
+import genai from '../assets/projects/genai.svg'
 /* ------------------------------------------------------------------
    SINGLE SOURCE OF TRUTH FOR ALL SITE CONTENT
    Edit this file to update the portfolio. Anything marked TODO is an
@@ -202,6 +208,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: 'face-swap-detection',
+    image: faceSwap,
     title: 'Face-Swap Detection Interview System',
     category: 'Computer Vision',
     year: '',
@@ -213,6 +220,7 @@ export const projects: Project[] = [
   },
   {
     id: 'ai-interview',
+    image: aiInterview,
     title: 'AI Interview System',
     category: 'AI Agent Systems',
     year: '',
@@ -224,6 +232,7 @@ export const projects: Project[] = [
   },
   {
     id: 'image-generation',
+    image: imageGen,
     title: 'AI Image Generation Tool',
     category: 'AI Applications',
     year: '',
@@ -235,6 +244,7 @@ export const projects: Project[] = [
   },
   {
     id: 'profile-optimizer',
+    image: profileOpt,
     title: 'Profile Optimizer Extension',
     category: 'NLP & LLM',
     year: '',
@@ -246,6 +256,7 @@ export const projects: Project[] = [
   },
   {
     id: 'image-classification',
+    image: cnn,
     title: 'CNN Image Classifier',
     category: 'Machine Learning',
     year: '',
@@ -257,6 +268,7 @@ export const projects: Project[] = [
   },
   {
     id: 'genai-tools',
+    image: genai,
     title: 'Generative AI Tools',
     category: 'NLP & LLM',
     year: '',
