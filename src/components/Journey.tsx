@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { ArrowUpRight, Award, Minus, Plus } from 'lucide-react'
-import { certifications, experience, heroStats } from '../data/profile'
+import { certifications, experience } from '../data/profile'
 import { Reveal } from './Reveal'
 
 const initials = (s: string) =>
@@ -17,7 +17,6 @@ export default function Journey() {
   const lineRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: lineRef, offset: ['start 75%', 'end 60%'] })
   const draw = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
-  const stats = [{ value: String(experience.length), suffix: '', label: ['ROLES &', 'PROGRAMMES'] }, ...heroStats]
 
   return (
     <section id="experience" className="section">
@@ -32,17 +31,6 @@ export default function Journey() {
                 Keep <span className="red">shipping</span>
                 <span className="dot">.</span>
               </h2>
-            </div>
-            <div className="jr-stats">
-              {stats.map((s) => (
-                <div key={s.label.join()}>
-                  <b>
-                    {s.value}
-                    <i>{s.suffix}</i>
-                  </b>
-                  <small>{s.label.join(' ')}</small>
-                </div>
-              ))}
             </div>
           </div>
         </Reveal>
