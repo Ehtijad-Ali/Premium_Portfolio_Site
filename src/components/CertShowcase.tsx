@@ -274,13 +274,12 @@ export default function CertShowcase() {
     progress.current = v
   })
   const piecesIn = useTransform(scrollYProgress, [0.45, 0.85], [0, 1], { clamp: true })
-  const headY = useTransform(scrollYProgress, [0, 0.6], [40, 0])
 
   return (
     <section ref={section} id="stack" className="cs-section" aria-labelledby="cs-title">
       <div className="cs-sticky">
         <div className="container cs-inner">
-          <motion.div className="cs-head" style={{ y: headY }}>
+          <motion.div className="cs-head">
             <div className="eyebrow">The stack</div>
             <h2 id="cs-title" className="sec-title">
               Pieces that <span className="red">built</span> me<Dot />
