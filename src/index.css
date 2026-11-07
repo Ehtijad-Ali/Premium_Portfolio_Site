@@ -604,3 +604,55 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
 .ct-shade { position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: linear-gradient(90deg, rgba(9, 9, 9, .82) 0%, rgba(9, 9, 9, .45) 55%, rgba(9, 9, 9, .1) 100%), linear-gradient(0deg, rgba(9, 9, 9, .7), transparent 35%, transparent 70%, rgba(9, 9, 9, .55)); }
 .ct-card-mid { z-index: 1; }
+
+/* ---------- Certificate showcase (particle portrait) ---------- */
+.cs-section { position: relative; height: 230vh; border-top: 1px solid var(--line); }
+.cs-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
+.cs-inner { width: 100%; display: flex; flex-direction: column; height: 100%; padding-top: 96px; padding-bottom: 24px; }
+.cs-head { text-align: center; }
+.cs-head .sec-title { margin-top: 10px; }
+.cs-sub { margin: 10px 0 0; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.cs-stage { position: relative; flex: 1; min-height: 0; margin-top: 12px; }
+.cs-halo { position: absolute; left: 50%; top: 55%; width: min(60vh, 560px); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(239, 65, 81, .22), transparent 65%); }
+.cs-portrait { position: absolute; left: 50%; top: 0; bottom: 0; width: min(46%, 520px); translate: -50% 0; }
+.cs-portrait canvas { width: 100%; height: 100%; display: block; }
+.cs-cert { position: absolute; translate: -50% -50%; display: flex; align-items: center; gap: 10px; padding: 8px 12px 8px 8px; width: max-content; max-width: 230px; text-align: left;
+  border-radius: 14px; border: 1px solid var(--line-2); background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: var(--text); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, .6); transition: border-color .35s, box-shadow .45s var(--ease), transform .45s var(--ease), max-width .5s var(--ease); z-index: 2; }
+.cs-cert:hover, .cs-cert:focus-visible { transform: scale(1.07); border-color: var(--accent); box-shadow: 0 0 0 1px rgba(239, 65, 81, .35), 0 18px 46px -14px rgba(239, 65, 81, .55); z-index: 3; }
+.cs-badge { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-display); font-size: 13px; letter-spacing: .04em;
+  color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+.cs-text { display: grid; gap: 2px; min-width: 0; }
+.cs-text b { font-size: 12px; font-weight: 700; line-height: 1.3; }
+.cs-text small { font-size: 10px; color: var(--muted); letter-spacing: .04em; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s var(--ease), opacity .3s; }
+.cs-cert:hover .cs-text small, .cs-cert:focus-visible .cs-text small, .cs-cert-static .cs-text small { max-height: 30px; opacity: 1; }
+:root[data-theme='light'] .cs-cert { background: rgba(255, 255, 255, .86); box-shadow: 0 10px 30px -16px rgba(20, 16, 16, .25); }
+:root[data-theme='light'] .cs-halo { background: radial-gradient(circle, rgba(224, 38, 58, .14), transparent 65%); }
+.cs-list { display: none; list-style: none; margin: 0; padding: 0; }
+.cs-modal { position: relative; width: min(520px, 92vw); border-radius: 18px; overflow: hidden; background: var(--bg); border: 1px solid var(--line-2); color: var(--text); }
+.cs-m-art { aspect-ratio: 16 / 9; display: grid; place-items: center; align-content: center; gap: 12px; color: #fff; font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  background: radial-gradient(ellipse at 80% 10%, rgba(239, 65, 81, .6), transparent 60%), #140e0f; }
+.cs-m-img { width: 100%; display: block; }
+.cs-m-body { padding: 24px 26px 28px; }
+.cs-m-body h3 { font-size: 22px; margin: 8px 0 6px; letter-spacing: -.02em; }
+.cs-m-body p { margin: 0 0 18px; font-size: 13px; }
+
+@media (max-width: 1100px) {
+  .cs-section { height: 200vh; }
+  .cs-inner { padding-top: 88px; }
+  .cs-stage { flex: 0 0 52vh; }
+  .cs-portrait { width: min(70%, 380px); }
+  .cs-stage .cs-cert { display: none; }
+  .cs-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
+  .cs-cert-static { position: static; translate: none; max-width: none; width: 100%; }
+  .cs-cert-static .cs-text small { max-height: 30px; opacity: 1; }
+}
+@media (max-width: 640px) {
+  .cs-section { height: auto; }
+  .cs-sticky { position: relative; height: auto; }
+  .cs-inner { padding-top: 72px; padding-bottom: 56px; }
+  .cs-stage { flex: none; height: 420px; }
+  .cs-portrait { width: 86%; }
+  .cs-list { grid-template-columns: 1fr; }
+}
