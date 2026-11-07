@@ -662,3 +662,47 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
   .cs-portrait { width: 96%; top: 0; }
   .cs-list { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ---------- Live project covers ---------- */
+.pa { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: transform 0.8s var(--ease); }
+.card:hover .pa { transform: scale(1.04); }
+.pa * { transform-box: fill-box; transform-origin: center; }
+.pa-glow { animation: pa-glow 6s ease-in-out infinite alternate; }
+@keyframes pa-glow { to { opacity: .55; } }
+.pa-blink { animation: pa-blink 1.2s steps(2, jump-none) infinite; }
+@keyframes pa-blink { 50% { opacity: .15; } }
+.pa-pop { animation: pa-pop 2.4s ease-in-out infinite; }
+@keyframes pa-pop { 0%, 100% { transform: scale(.6); opacity: .5; } 40% { transform: scale(1.3); opacity: 1; } }
+.pa-mesh { animation: pa-glow 2.4s ease-in-out infinite alternate; }
+.pa-breathe { animation: pa-breathe 3s ease-in-out infinite; }
+@keyframes pa-breathe { 50% { transform: scale(1.03); } }
+.pa-scan { animation: pa-scan 3s cubic-bezier(.45, 0, .55, 1) infinite alternate; }
+@keyframes pa-scan { from { transform: translateY(100px); } to { transform: translateY(395px); } }
+.pa-fill { transform-origin: left center !important; animation: pa-fill 3s cubic-bezier(.22, 1, .36, 1) infinite; }
+.pa-slow { animation-duration: 3.4s; }
+@keyframes pa-fill { 0% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+.pa-badge { animation: pa-badge 3s ease infinite; }
+@keyframes pa-badge { 0%, 55% { opacity: 0; } 70%, 100% { opacity: 1; } }
+.pa-msg { animation: pa-msg 5s cubic-bezier(.22, 1, .36, 1) infinite both; }
+@keyframes pa-msg { 0% { opacity: 0; transform: translateY(14px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+.pa-dot { animation: pa-dot 1s ease-in-out infinite; }
+@keyframes pa-dot { 50% { transform: translateY(-5px); opacity: .4; } }
+.pa-wave { animation: pa-wave 1.1s ease-in-out infinite alternate; }
+@keyframes pa-wave { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+.pa-tile { animation: pa-tile 4.4s cubic-bezier(.22, 1, .36, 1) infinite both; }
+@keyframes pa-tile { 0% { opacity: 0; transform: scale(.6); } 12%, 85% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+.pa-bob { animation: pa-bob 2.2s ease-in-out infinite; }
+@keyframes pa-bob { 50% { transform: translateY(-10px); } }
+.pa-grow { transform-origin: left center !important; animation: pa-grow 3.6s cubic-bezier(.22, 1, .36, 1) infinite both; }
+@keyframes pa-grow { 0% { transform: scaleX(0); } 45%, 100% { transform: scaleX(1); } }
+.pa-ring { transform-origin: 0 0 !important; transform-box: view-box !important; animation: pa-ring 3.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes pa-ring { 0% { stroke-dashoffset: var(--c); } 55%, 100% { stroke-dashoffset: 0; } }
+.pa-layer { animation: pa-layer 1.8s ease-in-out infinite; }
+@keyframes pa-layer { 0%, 100% { opacity: .55; } 30% { opacity: 1; } }
+.pa-flow { stroke-dasharray: 6 8; animation: pa-flow 1s linear infinite; }
+@keyframes pa-flow { to { stroke-dashoffset: -14; } }
+.pa-pulse { animation: pa-pop 1.6s ease-in-out infinite; }
+.pa-draw { stroke-dasharray: 320; animation: pa-draw 4s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes pa-draw { 0% { stroke-dashoffset: 320; } 60%, 100% { stroke-dashoffset: 0; } }
+.pa-area { animation: pa-badge 4s ease infinite; }
+.reduce-motion .pa *, .reduce-motion .pa { animation: none !important; }

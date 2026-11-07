@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, ArrowUpRight, ExternalLink, Search, X } from 'lucide-react'
 import { categories, projects, tools, type Project } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
+import { projectArt } from './ProjectArt'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -67,7 +68,9 @@ export default function Work() {
               >
                 <div className="card-media">
                   <span className="card-tag">{p.category}</span>
-                  {p.image ? (
+                  {projectArt[p.id] ? (
+                    projectArt[p.id]()
+                  ) : p.image ? (
                     <img src={p.image} alt="" loading="lazy" />
                   ) : (
                     <div className="ph-art">
@@ -150,7 +153,7 @@ function ProjectModal({ project: p, onClose }: { project: Project; onClose: () =
           <X size={18} />
         </button>
         <div className="card-media" style={{ border: 0 }}>
-          {p.image ? <img src={p.image} alt={`${p.title} screenshot`} /> : <div className="ph-art"><span>{p.title}</span></div>}
+          {projectArt[p.id] ? projectArt[p.id]() : p.image ? <img src={p.image} alt={`${p.title} illustration`} /> : <div className="ph-art"><span>{p.title}</span></div>}
         </div>
         <div className="modal-body">
           <div className="eyebrow red">
