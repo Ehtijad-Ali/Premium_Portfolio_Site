@@ -1,16 +1,8 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
-import { ArrowUpRight, Award, Minus, Plus } from 'lucide-react'
-import { certifications, experience } from '../data/profile'
+import { Minus, Plus } from 'lucide-react'
+import { experience } from '../data/profile'
 import { Reveal } from './Reveal'
-
-const initials = (s: string) =>
-  s
-    .split(/[\s·,&+-]+/)
-    .filter((w) => /^[A-Z]/.test(w))
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('') || s[0]
 
 export default function Journey() {
   const [open, setOpen] = useState(0)
@@ -35,7 +27,7 @@ export default function Journey() {
           </div>
         </Reveal>
 
-        <div className="journey-grid">
+        <div className="journey-grid journey-solo">
           <div className="tl" ref={lineRef}>
             <div className="tl-rail" aria-hidden>
               <motion.span style={{ scaleY: draw }} />
@@ -82,49 +74,6 @@ export default function Journey() {
               )
             })}
           </div>
-
-          <aside className="mile" aria-label="Certifications">
-            <div className="eyebrow">A few milestones</div>
-            <h3 className="mile-title">
-              Learned.
-              <br />
-              <span className="red">Certified.</span>
-            </h3>
-            <div className="cert-list">
-              {certifications.map((c, i) => {
-                const inner = (
-                  <>
-                    <span className="cert-badge" aria-hidden>
-                      {initials(c.issuer)}
-                    </span>
-                    <span>
-                      <b>{c.title}</b>
-                      <small>
-                        {c.issuer}
-                        {c.date && ` · ${c.date}`}
-                      </small>
-                    </span>
-                    {c.url ? <ArrowUpRight size={14} /> : <span className="i">{String(i + 1).padStart(2, '0')}</span>}
-                  </>
-                )
-                return (
-                  <Reveal key={c.title} delay={i * 0.05} y={12}>
-                    {c.url ? (
-                      <a className="cert" href={c.url} target="_blank" rel="noreferrer">
-                        {inner}
-                      </a>
-                    ) : (
-                      <div className="cert">{inner}</div>
-                    )}
-                  </Reveal>
-                )
-              })}
-            </div>
-            <div className="mile-foot">
-              <Award size={16} />
-              {certifications.length} certifications &amp; counting
-            </div>
-          </aside>
         </div>
       </div>
     </section>
