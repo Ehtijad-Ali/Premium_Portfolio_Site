@@ -17,39 +17,7 @@ const rows = [
   { label: 'BASED IN', value: profile.location, href: '', icon: MapPin },
 ]
 
-/** zig-zag from the top of the section down into the video card, measured live */
-function useZig() {
-  const [z, setZ] = useState({ w: 100, h: 100, d: "" })
-  useEffect(() => {
-    const sec = document.getElementById("contact")
-    const card = sec?.querySelector(".ct-card")
-    if (!sec || !card) return
-    const calc = () => {
-      const s = sec.getBoundingClientRect()
-      const c = card.getBoundingClientRect()
-      const ex = c.left - s.left + c.width / 2
-      const ey = c.top - s.top + 2
-      const sx = ex - 30
-      const steps = 6
-      let d = `M${sx} 0`
-      for (let i = 1; i < steps; i++) {
-        const t = i / steps
-        const x = sx + (ex - sx) * t + (i % 2 ? 1 : -1) * 36
-        d += ` L${x.toFixed(1)} ${(ey * t).toFixed(1)}`
-      }
-      d += ` L${ex.toFixed(1)} ${ey.toFixed(1)}`
-      setZ({ w: s.width, h: s.height, d })
-    }
-    calc()
-    const ro = new ResizeObserver(calc)
-    ro.observe(sec)
-    const t1 = setTimeout(calc, 1500)
-    return () => { ro.disconnect(); clearTimeout(t1) }
-  }, [])
-  return z
-}
-
-const words =['smarter.', 'faster.', 'together.']
+const words = ['smarter.', 'faster.', 'together.']
 
 type Fields = { name: string; email: string; subject: string; message: string }
 const empty: Fields = { name: '', email: '', subject: '', message: '' }
@@ -83,7 +51,6 @@ export default function Contact() {
   const [copied, setCopied] = useState(false)
   const [w, setW] = useState(0)
   const time = useLocalTime()
-  const zig = useZig()
 
   useEffect(() => {
     const id = setInterval(() => setW((n) => (n + 1) % words.length), 2400)
@@ -138,10 +105,6 @@ export default function Contact() {
   return (
     <section id="contact" className="section ct-section">
       <div className="ct-glow" aria-hidden />
-      <svg className="ct-zig" viewBox={`0 0 ${zig.w} ${zig.h}`} aria-hidden>
-        <path className="ct-zig-base" d={zig.d} />
-        <path className="ct-zig-flow" d={zig.d} />
-      </svg>
       <div className="container">
         <div className="contact-grid">
           <div>
