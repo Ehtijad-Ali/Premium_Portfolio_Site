@@ -280,4 +280,44 @@ export const projects: Project[] = [
 ]
 
 /** Only real client feedback. Empty array = "coming soon" state. */
-export const testimonials: { quote: string; name: string; source: string }[] = []
+export type Testimonial = {
+  quote: string
+  name: string
+  country: string
+  countryCode: string
+  rating: number
+  gig: string
+  price: string
+  duration: string
+  source: 'Fiverr'
+}
+
+/** Verbatim Fiverr reviews supplied by Ehtijad. Only real client feedback. */
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      'Ehtijad is an OUTSTANDING AI engineer who went above and beyond to deliver exceptional results! His attention to detail, professionalism, and proactive communication made working with him a seamless experience. Highly recommended for anyone in need of top-tier Data Science & ML expertise—THANK YOU, Ehtijad! 🙌',
+    name: 'mcjojojames', country: 'Switzerland', countryCode: 'CH', rating: 5, gig: 'Data Scraping', price: '$100–$200', duration: '5 weeks', source: 'Fiverr',
+  },
+  {
+    quote:
+      'Definitely someone I would consider working with again. Has good amount of knowledge and a fast problem solver. Would go over and beyond in his work and always follow up for feedback. Additionally if he were to be an asset to your project he would give you the right critiques to make the right product better.',
+    name: 'petersaur', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$400–$600', duration: '4 days', source: 'Fiverr',
+  },
+  {
+    quote: 'Great results, vey good and mostly prompt response- cooperative in terms of changes . very much appreciated to work with you.',
+    name: 'emiliajulius', country: 'Germany', countryCode: 'DE', rating: 4.7, gig: 'Data Scraping', price: '$200–$400', duration: '4 weeks', source: 'Fiverr',
+  },
+  {
+    quote: 'Excellent experience working together. The project was completed as committed.',
+    name: 'sophahenrys', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50–$100', duration: '2 days', source: 'Fiverr',
+  },
+  {
+    quote: 'Fast, professional, and exceeded expectations—highly recommend!',
+    name: 'jack_son33', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50–$100', duration: '2 days', source: 'Fiverr',
+  },
+  {
+    quote: 'Amazing work. The seller has done work as I need. highly recommended',
+    name: 'olivia_jack24', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50', duration: '1 day', source: 'Fiverr',
+  },
+]
