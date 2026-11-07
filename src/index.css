@@ -182,7 +182,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .compare-foot { display: flex; justify-content: space-between; margin-top: 14px; }
 
 /* ---------- About ---------- */
-.about-top { display: grid; grid-template-columns: 1.3fr 0.9fr; gap: 60px; align-items: start; margin-bottom: 40px; }
+.about-top { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; margin-bottom: 40px; }
+.about-text .about-copy { margin-top: 22px; }
+.about-copy { max-width: 760px; }
 .about-title { font-family: var(--font-display); font-size: clamp(42px, 4.2vw, 64px); line-height: 1.05; text-transform: uppercase; margin: 18px 0 0; }
 .about-copy p { font-size: 14.5px; line-height: 1.8; color: var(--text-2); margin: 0 0 10px; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr 0.8fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -690,3 +692,11 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
 }
 @media (max-width: 1100px) { .section { padding: 72px 0; } .about-grid .quote-col { padding-bottom: 24px !important; } }
 @media (max-width: 640px) { .section { padding: 56px 0; } .sec-head { margin-bottom: 22px; } }
+
+/* About: particle portrait on the right */
+.ab-portrait { position: relative; height: clamp(380px, 38vw, 560px); }
+.ab-portrait .cs-portrait { top: 0; bottom: 0; width: 100%; }
+.ab-portrait .cs-halo { top: 55%; width: 90%; }
+.ab-hint { position: absolute; left: 50%; bottom: -22px; translate: -50% 0; white-space: nowrap; font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 1100px) { .about-top { grid-template-columns: 1fr; } .ab-portrait { height: 440px; max-width: 520px; width: 100%; margin: 0 auto 20px; } }
+@media (max-width: 640px) { .ab-portrait { height: 360px; } }

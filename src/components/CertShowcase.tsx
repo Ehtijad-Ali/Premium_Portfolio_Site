@@ -38,7 +38,7 @@ const motionAllowed = () =>
 /* `progress` (0 = scattered, 1 = assembled) is read from a ref, so    */
 /* scrolling never triggers a React render.                            */
 /* ------------------------------------------------------------------ */
-function ParticlePortrait({ progress }: { progress: React.MutableRefObject<number> }) {
+export function ParticlePortrait({ progress }: { progress: React.MutableRefObject<number> }) {
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
 

@@ -1,16 +1,38 @@
+import { useRef } from 'react'
+import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { Asterisk } from 'lucide-react'
 import { education, process, profile, skillGroups } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
 import SystemDiagram from './SystemDiagram'
 import TechLogos from './TechLogos'
+import { ParticlePortrait } from './CertShowcase'
 
 const pad = (n: number) => String(n).padStart(2, '0')
+
+/** particle portrait that assembles as the About section scrolls into view */
+function AboutPortrait() {
+  const box = useRef<HTMLDivElement>(null)
+  const progress = useRef(0)
+  const { scrollYProgress } = useScroll({ target: box, offset: ['start end', 'center center'] })
+  const p = useTransform(scrollYProgress, [0.1, 0.95], [0, 1], { clamp: true })
+  useMotionValueEvent(p, 'change', (v) => {
+    progress.current = v
+  })
+  return (
+    <div className="ab-portrait" ref={box}>
+      <div className="cs-halo" aria-hidden />
+      <ParticlePortrait progress={progress} />
+      <span className="ab-hint">Scroll to assemble · hover to scatter</span>
+    </div>
+  )
+}
 
 export default function About() {
   return (
     <section id="about" className="section">
       <div className="container">
         <div className="about-top">
+          <div className="about-text">
           <Reveal>
             <div className="eyebrow">02 / Behind the code</div>
             <h2 className="about-title">
@@ -25,6 +47,8 @@ export default function About() {
               <p key={p}>{p}</p>
             ))}
           </Reveal>
+          </div>
+          <AboutPortrait />
         </div>
 
         <div className="about-grid">
