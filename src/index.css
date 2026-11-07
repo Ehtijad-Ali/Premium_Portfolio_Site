@@ -706,3 +706,33 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
 @keyframes pa-draw { 0% { stroke-dashoffset: 320; } 60%, 100% { stroke-dashoffset: 0; } }
 .pa-area { animation: pa-badge 4s ease infinite; }
 .reduce-motion .pa *, .reduce-motion .pa { animation: none !important; }
+
+/* ---------- Hero (dynamic) ---------- */
+.hero-spot { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .6s;
+  background: radial-gradient(520px circle at var(--hx, 50%) var(--hy, 40%), rgba(239, 65, 81, .16), transparent 70%); }
+.hero-live:hover .hero-spot { opacity: 1; }
+.hero-dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.hero-dust i { position: absolute; bottom: -10px; width: 3px; height: 3px; border-radius: 50%; background: var(--accent-soft); opacity: 0; animation: hero-dust linear infinite; }
+.hero-dust i:nth-child(3n) { width: 2px; height: 2px; background: var(--text); }
+@keyframes hero-dust { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .55; } 85% { opacity: .35; } 100% { transform: translateY(-100svh) translateX(30px); opacity: 0; } }
+.hero-float { animation: hero-float 7s ease-in-out infinite; }
+@keyframes hero-float { 50% { translate: 0 -10px; } }
+.hn-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .02em; }
+.hn-mask > span { display: inline-block; }
+.hero-name .dot { display: inline-block; }
+.hr-rot { display: inline-block; min-height: 1.05em; vertical-align: top; }
+.hr-rot > span { display: inline-block; }
+.ring-spin { animation: ring-spin 10s linear infinite; }
+@keyframes ring-spin { to { rotate: 360deg; } }
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent); animation: btn-shine 3.6s ease-in-out infinite; }
+@keyframes btn-shine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+.bounce-y { animation: bounce-y 1.6s ease-in-out infinite; }
+@keyframes bounce-y { 50% { translate: 0 3px; } }
+.hero-scroll { position: absolute; left: 50%; bottom: 18px; z-index: 3; width: 22px; height: 36px; translate: -50% 0; border: 1px solid var(--line-2); border-radius: 12px; display: grid; justify-items: center; }
+.hero-scroll span { width: 3px; height: 7px; margin-top: 7px; border-radius: 2px; background: var(--accent); animation: hero-scroll 1.8s ease-in-out infinite; }
+@keyframes hero-scroll { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(12px); opacity: 0; } 100% { opacity: 0; } }
+.reduce-motion .hero-dust, .reduce-motion .hero-spot { display: none; }
+.reduce-motion .hero-float, .reduce-motion .ring-spin, .reduce-motion .btn-shine::after, .reduce-motion .bounce-y, .reduce-motion .hero-scroll span { animation: none; }
+@media (max-width: 900px) { .hero-scroll { display: none; } }
+.stat b > span { font: inherit; color: inherit; letter-spacing: inherit; line-height: inherit; }
