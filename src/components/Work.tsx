@@ -75,7 +75,6 @@ export default function Work() {
                   ) : (
                     <div className="ph-art">
                       <span>{p.title}</span>
-                      {p.placeholder && <em>PLACEHOLDER · EDIT src/data/profile.ts</em>}
                     </div>
                   )}
                 </div>
