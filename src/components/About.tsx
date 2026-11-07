@@ -5,7 +5,7 @@ import { education, process, profile, skillGroups } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
 import SystemDiagram from './SystemDiagram'
 import TechLogos from './TechLogos'
-import { ParticlePortrait } from './CertShowcase'
+import { ParticlePortrait } from './ParticlePortrait'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
