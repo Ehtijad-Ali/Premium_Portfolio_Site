@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Quote, Star } from 'lucide-react'
+import { ArrowUpRight, BadgeCheck, Quote, Star } from 'lucide-react'
 import { links, testimonials, type Testimonial } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
 
@@ -97,25 +97,42 @@ export default function Testimonials() {
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.9, ease }}
         >
-          <Quote className="tm-big-q" size={120} strokeWidth={1} aria-hidden />
-          <div className="tm-card-top">
-            <Stars value={featured.rating} />
-            <span className="tm-gig">{featured.gig}</span>
+          <aside className="tf-side">
+            <span className="tf-verified">
+              <BadgeCheck size={14} /> Verified Fiverr review
+            </span>
+            <div className="tf-score">
+              <b>{featured.rating.toFixed(1)}</b>
+              <Stars value={featured.rating} />
+            </div>
+            <dl className="tf-meta">
+              <div>
+                <dt>Service</dt>
+                <dd>{featured.gig}</dd>
+              </div>
+              <div>
+                <dt>Budget</dt>
+                <dd>{featured.price}</dd>
+              </div>
+              <div>
+                <dt>Duration</dt>
+                <dd>{featured.duration}</dd>
+              </div>
+            </dl>
+          </aside>
+          <div className="tf-main">
+            <Quote className="tf-q" size={44} strokeWidth={1.4} aria-hidden />
+            <blockquote>{featured.quote}</blockquote>
+            <figcaption>
+              <span className="tm-av">{featured.name[0].toUpperCase()}</span>
+              <span>
+                <b>{featured.name}</b>
+                <small>
+                  {featured.countryCode} · {featured.country}
+                </small>
+              </span>
+            </figcaption>
           </div>
-          <blockquote>“{featured.quote}”</blockquote>
-          <figcaption>
-            <span className="tm-av">{featured.name[0].toUpperCase()}</span>
-            <span>
-              <b>{featured.name}</b>
-              <small>
-                {featured.countryCode} · {featured.country}
-              </small>
-            </span>
-            <span className="tm-meta">
-              {featured.price}
-              <small>{featured.duration}</small>
-            </span>
-          </figcaption>
         </motion.figure>
       </div>
 
