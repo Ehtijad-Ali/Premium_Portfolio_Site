@@ -41,14 +41,11 @@ export default function Services() {
             <Reveal>
               <div className="eyebrow">What I do</div>
             </Reveal>
-            <h2 className="sec-title svc-title">
+            <motion.h2 className="sec-title svc-title" initial="hide" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
               {['Services for', 'global clients'].map((line, li) => (
                 <span className="svc-line" key={line}>
                   <motion.span
-                    initial={{ y: '110%' }}
-                    whileInView={{ y: '0%' }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.9, delay: li * 0.12, ease }}
+                    variants={{ hide: { y: "110%" }, show: { y: "0%", transition: { duration: 0.9, delay: li * 0.12, ease } } }}
                   >
                     {li === 1 ? (
                       <>
@@ -60,7 +57,7 @@ export default function Services() {
                   </motion.span>
                 </span>
               ))}
-            </h2>
+            </motion.h2>
           </div>
           <Reveal delay={0.2}>
             <p className="svc-intro">{profile.positioning}</p>

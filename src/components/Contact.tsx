@@ -1,8 +1,10 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, Briefcase, Code2, Mail, MapPin, Phone, Play, Plus, ShoppingBag, UserRound } from 'lucide-react'
+import { ArrowUpRight, Briefcase, Check, Clock, Code2, Copy, Mail, MapPin, Phone, Plus, ShoppingBag, UserRound } from 'lucide-react'
 import { contactEndpoint, links, profile } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 const rows = [
   { label: 'EMAIL', value: links.email, href: links.email && `mailto:${links.email}`, icon: Mail },
@@ -13,6 +15,8 @@ const rows = [
   { label: 'UPWORK', value: links.upwork && 'Ehtijad Ali', href: links.upwork, icon: Briefcase },
   { label: 'BASED IN', value: profile.location, href: '', icon: MapPin },
 ]
+
+const words = ['smarter.', 'faster.', 'together.']
 
 type Fields = { name: string; email: string; subject: string; message: string }
 const empty: Fields = { name: '', email: '', subject: '', message: '' }
@@ -26,11 +30,41 @@ function validate(f: Fields) {
   return e
 }
 
+/** live local time in Pakistan */
+function useLocalTime() {
+  const fmt = () =>
+    new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Karachi' }).format(new Date())
+  const [t, setT] = useState(fmt)
+  useEffect(() => {
+    const id = setInterval(() => setT(fmt()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return t
+}
+
 export default function Contact() {
   const [open, setOpen] = useState(false)
   const [f, setF] = useState(empty)
   const [err, setErr] = useState<Partial<Fields>>({})
   const [status, setStatus] = useState<'' | 'sending' | 'ok' | 'fail' | 'unconfigured'>('')
+  const [copied, setCopied] = useState(false)
+  const [w, setW] = useState(0)
+  const time = useLocalTime()
+
+  useEffect(() => {
+    const id = setInterval(() => setW((n) => (n + 1) % words.length), 2400)
+    return () => clearInterval(id)
+  }, [])
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(links.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch {
+      window.location.href = `mailto:${links.email}`
+    }
+  }
 
   async function submit(ev: FormEvent) {
     ev.preventDefault()
@@ -68,75 +102,126 @@ export default function Contact() {
   )
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section ct-section">
+      <div className="ct-glow" aria-hidden />
       <div className="container">
         <div className="contact-grid">
-          <Reveal>
-            <div className="eyebrow">04 / Your next project</div>
-            <h2 className="contact-title">
-              Have an idea?
-              <br />
-              Let’s build<Dot />
-            </h2>
-            <p className="contact-copy">
-              Let’s build something intelligent. I’m open to interesting projects, collaborations, and opportunities involving AI, machine
-              learning, automation, and full-stack development.
-            </p>
-            <button className="circle-link" onClick={() => { setOpen(true); setTimeout(() => document.getElementById('f-name')?.focus(), 350) }}>
-              <i>
-                <ArrowUpRight size={14} />
-              </i>
-              CONTACT ME
-            </button>
-          </Reveal>
+          <div>
+            <Reveal>
+              <div className="eyebrow">04 / Your next project</div>
+            </Reveal>
+            <motion.h2 className="contact-title" initial="hide" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+              {['Have an idea?', 'Let’s build'].map((line, i) => (
+                <span className="ct-line" key={line}>
+                  <motion.span
+                    variants={{ hide: { y: "110%" }, show: { y: "0%", transition: { duration: 0.9, delay: i * 0.14, ease } } }}
+                  >
+                    {i === 1 ? (
+                      <>
+                        Let’s <span className="red">build</span>
+                        <Dot />
+                      </>
+                    ) : (
+                      line
+                    )}
+                  </motion.span>
+                </span>
+              ))}
+            </motion.h2>
+            <Reveal delay={0.2}>
+              <p className="contact-copy">
+                Let’s build something intelligent. I’m open to interesting projects, collaborations, and opportunities involving AI, machine
+                learning, automation, and full-stack development.
+              </p>
+              <div className="ct-actions">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setOpen(true)
+                    setTimeout(() => document.getElementById('f-name')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350)
+                    setTimeout(() => document.getElementById('f-name')?.focus({ preventScroll: true }), 900)
+                  }}
+                >
+                  Start a project <ArrowUpRight size={14} />
+                </button>
+                <button className={`ct-copy ${copied ? 'on' : ''}`} onClick={copyEmail} aria-live="polite">
+                  {copied ? <Check size={14} /> : <Copy size={14} />}
+                  {copied ? 'Email copied' : 'Copy email'}
+                </button>
+              </div>
+            </Reveal>
+          </div>
 
-          <Reveal delay={0.1}>
-            <div className="clist">
-              {rows.map((r) => {
-                const Icon = r.icon
-                const body = (
-                  <>
-                    <span className="ic">
-                      <Icon size={12} />
-                    </span>
-                    <span>
-                      <small>{r.label}</small>
-                      {r.value ? <span>{r.value}</span> : <span className="todo">Add link in profile.ts</span>}
-                    </span>
-                    <ArrowUpRight size={14} />
-                  </>
-                )
-                return r.href ? (
-                  <a key={r.label} className="citem" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                    {body}
-                  </a>
-                ) : (
-                  <div key={r.label} className="citem">
-                    {body}
-                  </div>
-                )
-              })}
-            </div>
-          </Reveal>
+          <ul className="clist">
+            {rows.map((r, i) => {
+              const Icon = r.icon
+              const body = (
+                <>
+                  <span className="ic">
+                    <Icon size={14} />
+                  </span>
+                  <span>
+                    <small>{r.label}</small>
+                    {r.value ? <span>{r.value}</span> : <span className="todo">Add link in profile.ts</span>}
+                  </span>
+                  {r.href ? <ArrowUpRight size={15} /> : <span />}
+                </>
+              )
+              return (
+                <motion.li
+                  key={r.label}
+                  initial={{ opacity: 0, x: 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.7, delay: i * 0.06, ease }}
+                >
+                  {r.href ? (
+                    <a className="citem" href={r.href} target={r.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+                      {body}
+                    </a>
+                  ) : (
+                    <div className="citem">{body}</div>
+                  )}
+                </motion.li>
+              )
+            })}
+          </ul>
 
           <Reveal delay={0.2} className="reel-col">
-            <div className="reel" aria-hidden>
-              <div className="top">
-                <span>EHTIJAD ALI SHAH</span>
-                <span>AI REEL</span>
+            <div className="ct-card">
+              <div className="ct-card-top">
+                <span className="ct-status">
+                  <i /> Open to projects
+                </span>
+                <span>{profile.locationShort}</span>
               </div>
-              <div className="reel-inner">
-                <h4>
-                  Build
-                  <br />
-                  <span className="red">smarter.</span>
-                </h4>
+              <div className="ct-card-mid">
+                <span className="ct-small">Let’s build</span>
+                <span className="ct-rot">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={words[w]}
+                      initial={{ y: '100%', opacity: 0 }}
+                      animate={{ y: '0%', opacity: 1 }}
+                      exit={{ y: '-100%', opacity: 0 }}
+                      transition={{ duration: 0.55, ease }}
+                    >
+                      {words[w]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
               </div>
-              <span className="play">
-                <Play size={16} fill="#fff" />
-              </span>
+              <div className="ct-card-bot">
+                <span>
+                  <Clock size={13} /> Local time · PKT
+                </span>
+                <b>{time}</b>
+              </div>
+              <div className="ct-orbit" aria-hidden>
+                <span />
+                <span />
+              </div>
             </div>
-            <div className="reel-cap">AI ENGINEERING — FULL-STACK</div>
           </Reveal>
         </div>
 
