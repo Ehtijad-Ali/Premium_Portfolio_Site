@@ -49,8 +49,6 @@ export default function Testimonials() {
   if (testimonials.length === 0) return null
   // longest feedback first
   const [featured, ...rest] = [...testimonials].sort((a, b) => b.quote.length - a.quote.length)
-  const avg = testimonials.reduce((a, t) => a + t.rating, 0) / testimonials.length
-  const countries = new Set(testimonials.map((t) => t.countryCode)).size
 
   return (
     <section id="testimonials" className="section tm-section">
@@ -77,17 +75,6 @@ export default function Testimonials() {
               ))}
             </motion.h2>
           </div>
-          <Reveal delay={0.15}>
-            <div className="tm-score">
-              <b>{avg.toFixed(1)}</b>
-              <div>
-                <Stars value={avg} />
-                <small>
-                  {testimonials.length} reviews shown · {countries} countries
-                </small>
-              </div>
-            </div>
-          </Reveal>
         </div>
 
         <motion.figure
