@@ -657,4 +657,3 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
   .cs-portrait { width: 86%; }
   .cs-list { grid-template-columns: 1fr; }
 }
-.journey-solo { grid-template-columns: 1fr; }
