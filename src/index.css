@@ -598,3 +598,9 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
 .tm-card blockquote { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text-2); flex: 1; }
 .tm-more { margin-top: 28px; display: inline-flex; }
 @media (max-width: 640px) { .tm-card { width: 290px; } .tm-score > b { font-size: 48px; } .tm-big-q { width: 80px; height: 80px; } .tm-featured figcaption { flex-wrap: wrap; } }
+
+/* contact card video */
+.ct-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.ct-shade { position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(9, 9, 9, .82) 0%, rgba(9, 9, 9, .45) 55%, rgba(9, 9, 9, .1) 100%), linear-gradient(0deg, rgba(9, 9, 9, .7), transparent 35%, transparent 70%, rgba(9, 9, 9, .55)); }
+.ct-card-mid { z-index: 1; }

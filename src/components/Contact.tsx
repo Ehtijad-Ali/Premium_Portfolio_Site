@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, Briefcase, Check, Clock, Code2, Copy, Mail, MapPin, Phone, Plus, ShoppingBag, UserRound } from 'lucide-react'
 import { contactEndpoint, links, profile } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
+import cardVideo from '../assets/video.mp4'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -189,6 +190,8 @@ export default function Contact() {
 
           <Reveal delay={0.2} className="reel-col">
             <div className="ct-card">
+              <video className="ct-video" src={cardVideo} autoPlay muted loop playsInline preload="metadata" aria-hidden />
+              <div className="ct-shade" aria-hidden />
               <div className="ct-card-top">
                 <span className="ct-status">
                   <i /> Open to projects
@@ -216,10 +219,6 @@ export default function Contact() {
                   <Clock size={13} /> Local time · PKT
                 </span>
                 <b>{time}</b>
-              </div>
-              <div className="ct-orbit" aria-hidden>
-                <span />
-                <span />
               </div>
             </div>
           </Reveal>
