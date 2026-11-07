@@ -47,8 +47,10 @@ function Card({ t, hidden }: { t: Testimonial; hidden?: boolean }) {
 
 export default function Testimonials() {
   if (testimonials.length === 0) return null
-  // longest feedback first
-  const [featured, ...rest] = [...testimonials].sort((a, b) => b.quote.length - a.quote.length)
+  // featured review is chosen explicitly; the rest scroll below, longest first
+  const FEATURED = 'petersaur'
+  const featured = testimonials.find((t) => t.name === FEATURED) ?? testimonials[0]
+  const rest = testimonials.filter((t) => t !== featured).sort((a, b) => b.quote.length - a.quote.length)
 
   return (
     <section id="testimonials" className="section tm-section">
