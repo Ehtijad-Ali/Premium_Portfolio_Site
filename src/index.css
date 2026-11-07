@@ -182,7 +182,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .compare-foot { display: flex; justify-content: space-between; margin-top: 14px; }
 
 /* ---------- About ---------- */
-.about-top { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; margin-bottom: 40px; }
+.about-top { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center; margin-bottom: 48px; }
 .about-text .about-copy { margin-top: 22px; }
 .about-copy { max-width: 760px; }
 .about-title { font-family: var(--font-display); font-size: clamp(42px, 4.2vw, 64px); line-height: 1.05; text-transform: uppercase; margin: 18px 0 0; }
@@ -649,3 +649,17 @@ figcaption small { display: block; font-size: 10.5px; color: var(--muted); lette
 .ab-hint { position: absolute; left: 50%; bottom: -22px; translate: -50% 0; white-space: nowrap; font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 1100px) { .about-top { grid-template-columns: 1fr; } .ab-portrait { height: 440px; max-width: 520px; width: 100%; margin: 0 auto 20px; } }
 @media (max-width: 640px) { .ab-portrait { height: 360px; } }
+
+/* About text (dynamic) */
+.ab-line { display: block; overflow: hidden; padding-bottom: .04em; }
+.ab-line > span { display: inline-block; }
+.ab-mark { background: none; color: var(--text); font-weight: 600; position: relative; white-space: nowrap;
+  background-image: linear-gradient(var(--accent), var(--accent)); background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 2px;
+}
+.ab-facts { list-style: none; margin: 26px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.ab-facts li { padding: 16px 16px 0 0; position: relative; }
+.ab-facts li + li { padding-left: 18px; border-left: 1px solid var(--line); }
+.ab-facts b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 22px; text-transform: uppercase; color: var(--accent); }
+.ab-facts small { font-size: 11px; color: var(--muted); letter-spacing: .02em; }
+@media (max-width: 1100px) { .about-top { grid-template-columns: 1fr; } .about-top .ab-portrait { order: 2; } }
+@media (max-width: 640px) { .ab-facts { grid-template-columns: 1fr; } .ab-facts li + li { padding-left: 0; border-left: 0; } }

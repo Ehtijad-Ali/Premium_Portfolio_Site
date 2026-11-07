@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { Asterisk } from 'lucide-react'
 import { education, process, profile, skillGroups } from '../data/profile'
 import { Dot, Reveal } from './Reveal'
@@ -8,6 +8,28 @@ import TechLogos from './TechLogos'
 import { ParticlePortrait } from './ParticlePortrait'
 
 const pad = (n: number) => String(n).padStart(2, '0')
+const ease = [0.22, 1, 0.36, 1] as const
+const rise = (delay: number) => ({ hide: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, delay, ease } } })
+
+/** key phrases in the About copy get an animated underline */
+const KEYS = ['AI Engineer', 'Full-Stack Developer', 'Gilgit-Baltistan', 'AI agents', 'large language models', 'real-world problems', 'practical usability']
+function highlight(text: string) {
+  const re = new RegExp(`(${KEYS.join('|')})`, 'g')
+  return text.split(re).map((part, i) => (KEYS.includes(part) ? (
+      <motion.mark className="ab-mark" key={i} variants={{ hide: { backgroundSize: '0% 2px' }, show: { backgroundSize: '100% 2px', transition: { duration: 0.9, delay: 0.8 + i * 0.08, ease } } }}>
+        {part}
+      </motion.mark>
+    ) : (
+      part
+    )))
+}
+
+/** quick facts — all from the profile */
+const facts = [
+  { k: 'AI Agents', v: 'LLMs · RAG · automation' },
+  { k: 'Full-Stack', v: 'React · Python · APIs' },
+  { k: 'Based in', v: 'Gilgit-Baltistan, PK' },
+]
 
 /** particle portrait that assembles as the About section scrolls into view */
 function AboutPortrait() {
@@ -32,23 +54,40 @@ export default function About() {
     <section id="about" className="section">
       <div className="container">
         <div className="about-top">
-          <div className="about-text">
-          <Reveal>
-            <div className="eyebrow">02 / Behind the code</div>
-            <h2 className="about-title">
-              More than models<Dot />
-              <br />
-              Building <span className="red">intelligence</span>
-              <Dot />
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="about-copy">
-            {profile.about.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </Reveal>
-          </div>
           <AboutPortrait />
+          <motion.div className="about-text" initial="hide" whileInView="show" viewport={{ once: true, margin: '-80px' }}>
+            <motion.div className="eyebrow" variants={rise(0)}>
+              02 / Behind the code
+            </motion.div>
+            <h2 className="about-title">
+              {[
+                <>More than models<Dot /></>,
+                <>
+                  Building <span className="red">intelligence</span>
+                  <Dot />
+                </>,
+              ].map((line, i) => (
+                <span className="ab-line" key={i}>
+                  <motion.span variants={{ hide: { y: '110%' }, show: { y: '0%', transition: { duration: 0.9, delay: 0.1 + i * 0.12, ease } } }}>{line}</motion.span>
+                </span>
+              ))}
+            </h2>
+            <div className="about-copy">
+              {profile.about.map((p, i) => (
+                <motion.p key={p} variants={rise(0.35 + i * 0.12)}>
+                  {highlight(p)}
+                </motion.p>
+              ))}
+            </div>
+            <motion.ul className="ab-facts" variants={rise(0.9)}>
+              {facts.map((f) => (
+                <li key={f.k}>
+                  <b>{f.k}</b>
+                  <small>{f.v}</small>
+                </li>
+              ))}
+            </motion.ul>
+          </motion.div>
         </div>
 
         <div className="about-grid">
