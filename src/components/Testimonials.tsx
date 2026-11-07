@@ -47,7 +47,8 @@ function Card({ t, hidden }: { t: Testimonial; hidden?: boolean }) {
 
 export default function Testimonials() {
   if (testimonials.length === 0) return null
-  const [featured, ...rest] = testimonials
+  // longest feedback first
+  const [featured, ...rest] = [...testimonials].sort((a, b) => b.quote.length - a.quote.length)
   const avg = testimonials.reduce((a, t) => a + t.rating, 0) / testimonials.length
   const countries = new Set(testimonials.map((t) => t.countryCode)).size
 

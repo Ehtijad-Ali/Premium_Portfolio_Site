@@ -313,10 +313,6 @@ export const testimonials: Testimonial[] = [
     name: 'sophahenrys', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50–$100', duration: '2 days', source: 'Fiverr',
   },
   {
-    quote: 'Fast, professional, and exceeded expectations—highly recommend!',
-    name: 'jack_son33', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50–$100', duration: '2 days', source: 'Fiverr',
-  },
-  {
     quote: 'Amazing work. The seller has done work as I need. highly recommended',
     name: 'olivia_jack24', country: 'United States', countryCode: 'US', rating: 5, gig: 'AI Model Fine-Tuning', price: '$50', duration: '1 day', source: 'Fiverr',
   },
