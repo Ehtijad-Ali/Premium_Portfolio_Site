@@ -59,20 +59,12 @@ export default function Testimonials() {
               <div className="eyebrow">Kind words · Verified Fiverr reviews</div>
             </Reveal>
             <motion.h2 className="sec-title tm-title" initial="hide" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
-              {['What clients', 'say'].map((line, i) => (
-                <span className="ct-line" key={line}>
-                  <motion.span variants={{ hide: { y: '110%' }, show: { y: '0%', transition: { duration: 0.9, delay: i * 0.12, ease } } }}>
-                    {i === 1 ? (
-                      <>
-                        <span className="red">say</span>
-                        <Dot />
-                      </>
-                    ) : (
-                      line
-                    )}
-                  </motion.span>
-                </span>
-              ))}
+              <span className="ct-line">
+                <motion.span variants={{ hide: { y: '110%' }, show: { y: '0%', transition: { duration: 0.9, ease } } }}>
+                  What clients <span className="red">say</span>
+                  <Dot />
+                </motion.span>
+              </span>
             </motion.h2>
           </div>
         </div>
