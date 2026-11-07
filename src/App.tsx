@@ -62,12 +62,12 @@ export default function App() {
       <Header motionOn={motionOn} toggleMotion={() => setMotionOn((m) => !m)} />
       <main id="main">
         <Hero />
-        <CertShowcase />
         <Work />
         <Hood />
         <About />
         <Services />
         <Journey />
+        <CertShowcase />
         <Testimonials />
         <Contact />
       </main>
