@@ -1,31 +1,34 @@
-import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
-import { Award, X } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import portrait from '../assets/image1.png'
-import { certifications, type Certification } from '../data/profile'
+import {
+  siDocker, siFastapi, siGithub, siLangchain, siN8n, siOpencv, siPython, siPytorch, siReact, siTensorflow, siTypescript, siYolo,
+  type SimpleIcon,
+} from 'simple-icons'
 import { Dot } from './Reveal'
 
-const ease = [0.22, 1, 0.36, 1] as const
-const initials = (s: string) =>
-  s
-    .split(/\s+/)
-    .filter((w) => /^[A-Z]/.test(w))
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('') || s[0]
 
-/** positions around the portrait (percent of stage), balanced left / right */
-const SLOTS = [
-  { x: 14, y: 22 },
-  { x: 86, y: 20 },
-  { x: 9, y: 50 },
-  { x: 91, y: 48 },
-  { x: 15, y: 78 },
-  { x: 85, y: 77 },
-  { x: 50, y: 95 },
-  { x: 30, y: 8 },
-  { x: 70, y: 7 },
+/** the stack that built me — real tools from the skills list, placed around the portrait */
+type Piece = { icon: SimpleIcon; name?: string; role: string; x: number; y: number; d: number }
+const PIECES: Piece[] = [
+  { icon: siPython, role: 'Core language', x: 12, y: 16, d: 0 },
+  { icon: siTensorflow, role: 'Deep learning', x: 25, y: 36, d: 0.04 },
+  { icon: siPytorch, role: 'Deep learning', x: 8, y: 52, d: 0.08 },
+  { icon: siOpencv, role: 'Computer vision', x: 22, y: 70, d: 0.12 },
+  { icon: siYolo, name: 'YOLO', role: 'Object detection', x: 10, y: 84, d: 0.16 },
+  { icon: siLangchain, role: 'LLM & agents', x: 32, y: 87, d: 0.2 },
+  { icon: siReact, role: 'Frontend', x: 88, y: 16, d: 0.02 },
+  { icon: siTypescript, role: 'Frontend', x: 75, y: 36, d: 0.06 },
+  { icon: siFastapi, role: 'Backend APIs', x: 92, y: 52, d: 0.1 },
+  { icon: siN8n, role: 'Automation', x: 78, y: 70, d: 0.14 },
+  { icon: siDocker, role: 'Deployment', x: 90, y: 84, d: 0.18 },
+  { icon: siGithub, role: 'Version control', x: 68, y: 87, d: 0.22 },
 ]
+/** very dark brand colours fall back to the text colour */
+const isDark = (hex: string) => {
+  const n = parseInt(hex, 16)
+  return 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255) < 60
+}
 
 const motionAllowed = () =>
   !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('reduce-motion')
@@ -235,126 +238,85 @@ function ParticlePortrait({ progress }: { progress: React.MutableRefObject<numbe
 
 /* ------------------------------------------------------------------ */
 
-function CertChip({ c, i, onOpen, appear }: { c: Certification; i: number; onOpen: () => void; appear: MotionValue<number> }) {
-  const slot = SLOTS[i % SLOTS.length]
+function PieceChip({ p, appear }: { p: Piece; appear: MotionValue<number> }) {
+  const o = useTransform(appear, [p.d, p.d + 0.55], [0, 1], { clamp: true })
+  const sc = useTransform(o, [0, 1], [0.4, 1])
+  const fromX = p.x < 50 ? -60 : 60
+  const tx = useTransform(o, [0, 1], [fromX, 0])
   return (
-    <motion.button
-      className="cs-cert"
-      style={{ left: `${slot.x}%`, top: `${slot.y}%`, opacity: appear, scale: useTransform(appear, [0, 1], [0.85, 1]) }}
-      onClick={onOpen}
-      aria-label={`${c.title}, ${c.issuer}. Open details`}
+    <motion.div
+      className="cs-piece"
+      tabIndex={0}
+      style={{ left: `${p.x}%`, top: `${p.y}%`, opacity: o, scale: sc, x: tx, ['--brand' as string]: `#${p.icon.hex}` }}
+      data-dark={isDark(p.icon.hex) || undefined}
+      data-side={p.x < 50 ? 'l' : 'r'}
     >
-      <span className="cs-badge">{initials(c.issuer)}</span>
-      <span className="cs-text">
-        <b>{c.title}</b>
-        <small>
-          {c.issuer}
-          {c.date && ` · ${c.date}`}
-        </small>
+      <span className="cs-orb">
+        <svg viewBox="0 0 24 24" aria-hidden>
+          <path d={p.icon.path} />
+        </svg>
       </span>
-    </motion.button>
+      <span className="cs-tip">
+        <b>{p.name ?? p.icon.title}</b>
+        <small>{p.role}</small>
+      </span>
+    </motion.div>
   )
 }
 
 export default function CertShowcase() {
   const section = useRef<HTMLElement>(null)
   const progress = useRef(0)
-  const [active, setActive] = useState<Certification | null>(null)
   const { scrollYProgress } = useScroll({ target: section, offset: ['start end', 'end end'] })
   // assemble between 15% and 70% of the section's scroll range
   const p = useTransform(scrollYProgress, [0.15, 0.7], [0, 1], { clamp: true })
   useMotionValueEvent(p, 'change', (v) => {
     progress.current = v
   })
-  const certsIn = useTransform(scrollYProgress, [0.55, 0.8], [0, 1], { clamp: true })
+  const piecesIn = useTransform(scrollYProgress, [0.45, 0.85], [0, 1], { clamp: true })
   const headY = useTransform(scrollYProgress, [0, 0.6], [40, 0])
 
-  useEffect(() => {
-    if (!active) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setActive(null)
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [active])
-
   return (
-    <section ref={section} id="certificates" className="cs-section" aria-labelledby="cs-title">
+    <section ref={section} id="stack" className="cs-section" aria-labelledby="cs-title">
       <div className="cs-sticky">
         <div className="container cs-inner">
           <motion.div className="cs-head" style={{ y: headY }}>
-            <div className="eyebrow">Credentials</div>
+            <div className="eyebrow">The stack</div>
             <h2 id="cs-title" className="sec-title">
               Pieces that <span className="red">built</span> me<Dot />
             </h2>
-            <p className="cs-sub">Scroll to assemble · hover a credential for details</p>
+            <p className="cs-sub">Scroll to assemble · hover a piece</p>
           </motion.div>
 
           <div className="cs-stage">
             <div className="cs-halo" aria-hidden />
+            <svg className="cs-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+              {PIECES.map((pc) => (
+                <line key={pc.icon.slug} x1={pc.x} y1={pc.y} x2={50} y2={45} />
+              ))}
+            </svg>
             <ParticlePortrait progress={progress} />
-            {certifications.map((c, i) => (
-              <CertChip key={c.title} c={c} i={i} appear={certsIn} onOpen={() => setActive(c)} />
+            {PIECES.map((pc) => (
+              <PieceChip key={pc.icon.slug} p={pc} appear={piecesIn} />
             ))}
           </div>
 
-          {/* mobile / tablet: certificates as a list under the portrait */}
+          {/* tablet / mobile: the stack as a logo row under the portrait */}
           <ul className="cs-list">
-            {certifications.map((c) => (
-              <li key={c.title}>
-                <button className="cs-cert cs-cert-static" onClick={() => setActive(c)}>
-                  <span className="cs-badge">{initials(c.issuer)}</span>
-                  <span className="cs-text">
-                    <b>{c.title}</b>
-                    <small>
-                      {c.issuer}
-                      {c.date && ` · ${c.date}`}
-                    </small>
-                  </span>
-                </button>
+            {PIECES.map((pc) => (
+              <li key={pc.icon.slug} className="cs-mini" style={{ ['--brand' as string]: `#${pc.icon.hex}` }} data-dark={isDark(pc.icon.hex) || undefined}>
+                <svg viewBox="0 0 24 24" aria-hidden>
+                  <path d={pc.icon.path} />
+                </svg>
+                <span>
+                  <b>{pc.name ?? pc.icon.title}</b>
+                  <small>{pc.role}</small>
+                </span>
               </li>
             ))}
           </ul>
         </div>
       </div>
-
-      <AnimatePresence>
-        {active && (
-          <motion.div className="modal-bg" onClick={() => setActive(null)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div
-              className="cs-modal"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="cs-m-title"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ y: 30, opacity: 0, scale: 0.96 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 16, opacity: 0 }}
-              transition={{ duration: 0.5, ease }}
-            >
-              <button className="modal-close" onClick={() => setActive(null)} aria-label="Close" autoFocus>
-                <X size={18} />
-              </button>
-              {active.image ? (
-                <img className="cs-m-img" src={active.image} alt={`${active.title} certificate`} />
-              ) : (
-                <div className="cs-m-art">
-                  <Award size={44} strokeWidth={1.2} />
-                  <span>Certificate of completion</span>
-                </div>
-              )}
-              <div className="cs-m-body">
-                <div className="eyebrow red">{active.issuer}</div>
-                <h3 id="cs-m-title">{active.title}</h3>
-                <p className="muted">{active.date ? `Completed ${active.date}` : 'Completion date not listed.'}</p>
-                {active.url && (
-                  <a className="btn btn-primary" href={active.url} target="_blank" rel="noreferrer">
-                    Verify credential
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   )
 }
