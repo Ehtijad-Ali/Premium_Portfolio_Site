@@ -58,14 +58,12 @@ export default function Testimonials() {
             <Reveal>
               <div className="eyebrow">Kind words · Verified Fiverr reviews</div>
             </Reveal>
-            <motion.h2 className="sec-title tm-title" initial="hide" whileInView="show" viewport={{ once: true, margin: '-60px' }}>
-              <span className="ct-line">
-                <motion.span variants={{ hide: { y: '110%' }, show: { y: '0%', transition: { duration: 0.9, ease } } }}>
-                  What clients <span className="red">say</span>
-                  <Dot />
-                </motion.span>
-              </span>
-            </motion.h2>
+            <Reveal delay={0.05}>
+              <h2 className="sec-title tm-title">
+                What clients <span className="red">say</span>
+                <Dot />
+              </h2>
+            </Reveal>
           </div>
         </div>
 
